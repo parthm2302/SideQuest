@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SideQuest - turn any place into an adventure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head><body>
+<svg class="route" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M-20 560 C 200 420, 320 640, 520 470 S 860 200, 1220 300"/>
+  <circle cx="520" cy="470" r="7"/><circle cx="905" cy="283" r="7"/><circle cx="170" cy="505" r="7"/>
+</svg>
+<header class="nav"><a class="logo" href="#">SideQuest</a>
+  <nav><a href="#saved">Saved (<span id="savedCount">0</span>)</a><a href="#how">How it works</a><a href="#about">Open source</a>
+  <a class="btn small" href="#planner">Plan a quest</a></nav></header>
+
+<main>
+<section class="hero">
+  <div class="copy">
+    <h1>The best part of a trip is the detour.</h1>
+    <p>Drop in a city or a photo. Gemma 4 plans four small adventures that fit your mood and your free hours, plus a way to meet someone new along the way.</p>
+  </div>
+  <form id="planner" class="card" autocomplete="off">
+    <label class="drop" id="drop" tabindex="0">
+      <input type="file" name="photo" id="photo" accept="image/*" hidden>
+      <img id="preview" alt="" hidden>
+      <span id="dropText">Drop a photo of where you are<br><small>or click to choose one</small></span>
+    </label>
+    <label>Or type a place<input name="place" placeholder="Pondicherry, Kyoto, my college campus..."></label>
+    <div class="row">
+      <label>Mood<select name="vibe"><option>Curious</option><option>Foodie</option><option>Calm</option><option>Social</option><option>Wild</option></select></label>
+      <label>Free hours<input type="number" name="hours" min="1" max="12" value="3"></label>
+    </div>
+    <button class="btn" id="go">Find my sidequests</button>
+    <p id="error" role="alert" hidden></p>
+  </form>
+</section>
+
+<section id="results" hidden>
+  <h2 id="rPlace"></h2><p id="rSummary" class="lead"></p>
+  <div id="quests" class="grid"></div>
+  <p id="rTip" class="tip"></p>
+  <form id="followForm" class="follow">
+    <input id="ask" placeholder="Make it cheaper, add evening options, avoid crowds..." aria-label="Change the plan">
+    <button class="btn">Update plan</button>
+  </form>
+  <p id="followError" role="alert" hidden></p>
+</section>
+
+<section id="saved" class="saved">
+  <h2>Saved quests</h2>
+  <p id="savedEmpty" class="lead">Tap Save on any quest and it will wait for you here.</p>
+  <div id="savedList" class="grid"></div>
+</section>
+
+<section id="how" class="how">
+  <h2>How it works</h2>
+  <ol>
+    <li><b>You show or tell</b><span>Upload a photo or type where you are.</span></li>
+    <li><b>Flask asks Gemma 4</b><span>Our Python backend sends your photo, mood and time to the model.</span></li>
+    <li><b>You get quests</b><span>Four ranked detours, each with a way to meet people.</span></li>
+  </ol>
+</section>
+</main>
+<footer id="about"><p>SideQuest is open source (MIT). Built at Hacktoberfest Hack Day Chennai with Gemma 4.</p></footer>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body></html>
